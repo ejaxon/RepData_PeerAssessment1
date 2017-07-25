@@ -137,7 +137,7 @@ As may be seen in the plot, the subject is more active throughout the day on wee
 
 ## Note on interpolated values
 
-The two sets of mean/median values and the peak activity interval and time above are interpolated into the text using the `backtick-r ... backtick`. This may be seen in the `PA1_template.Rmd` file).
+The two sets of mean/median values and the peak activity interval and time above are interpolated into the text using the `backtick-r ... backtick` construction. This may be seen in the `PA1_template.Rmd` file).
 
 
 
