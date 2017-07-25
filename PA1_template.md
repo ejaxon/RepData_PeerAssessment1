@@ -3,18 +3,18 @@ Eric Jackson
 
 
 ## Loading and preprocessing the data
-Unzip the data file, read it, and create a new data frame with dates in the proper format. Clean up by removing the unzipped file and unneeded variables.
+Unzip the data file, read it, and create a new data frame with dates in the proper format. Clean up by removing the unzipped file.
+
 
 ```r
 unzip("./activity.zip")
-atmp <- read.csv("./activity.csv", header=TRUE, na.strings="NA")
-a <- data.frame(steps=atmp$steps, date=as.Date(atmp$date), interval=atmp$interval)
+a <- read.csv("./activity.csv", header=TRUE, na.strings="NA")
+a <- data.frame(steps=a$steps, date=as.Date(a$date), interval=a$interval)
 unlink("./activity.csv")
-rm(atmp)
 ```
 
 ## What is mean total number of steps taken per day?
-We'll use the `aggregate` function to sum by day and plot a histogram of the totals.
+We aggregate steps by day and plot a histogram of the totals.
 
 
 ```r
@@ -25,7 +25,7 @@ hist(total.per.day$steps, freq=TRUE, main="Histogram of Total Daily Steps", xlab
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
-Now calculate the mean and median. We round to the nearest integer.
+Now we calculate the mean and median, rounding to the nearest integer.
 
 
 ```r
@@ -37,7 +37,7 @@ The mean total number of steps taken per day is 9354, and the median is 10395.
 
 ## What is the average daily activity pattern?
 
-Now we aggregate the average number of steps by interval and plot it as a time series.
+To determine the average daily pattern, we aggregate the average number of steps by interval and plot it as a time series.
 
 
 ```r
@@ -52,7 +52,7 @@ plot(mean.per.interval$interval, mean.per.interval$steps, type="l",
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
-Not surprisingly, activity is concentrated in the daytime and early evening hours. The subject has an especially high peak in the morning. Next we calculate the specific interval in which the maximum appears, with the corresponding time.
+Not surprisingly, activity is concentrated in the daytime and early evening hours. The subject has an especially high peak in the morning. Let's calculate the specific interval in which the maximum appears and the corresponding time.
 
 
 ```r
@@ -61,14 +61,15 @@ max.interval = mean.per.interval$interval[index]
 hour = trunc(max.interval/100)
 min = max.interval - hour*100
 if (hour < 12) {
-  ampm = "AM"
+    ampm = "AM"
 } else {
-  if (hour > 12) {
-    hour = hour - 12
-  }
-  ampm = "PM"
+    if (hour > 12) {
+        hour = hour - 12
+    }
+    ampm = "PM"
 }
 ```
+
 The interval containing the maximum number of steps, on average, is interval 835, i.e., around 8:35 AM.
 
 ## Imputing missing values
@@ -144,3 +145,10 @@ xyplot(steps ~ interval | daytype, data = mean.per.interval, type="l", layout = 
 ![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 As may be seen in the plot, the subject is more active throughout the day on weekends.
+
+## Note on interpolated values
+
+The two sets of mean/median values and the peak activity interval and time above are interpolated into the text using the `backtick-r ... backtick`. This may be seen in the `PA1_template.Rmd` file).
+
+
+
